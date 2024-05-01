@@ -16,11 +16,26 @@ import { TodoButtons } from "./TodoButtons";
 export const Todo = () => {
   const [tasks, setTasks] = useState([]);
 
-  const onAddTask = (name) => setTasks(handleAddTask(name, tasks));
+  const onAddTask = (name) => {
+    const result = handleAddTask(name, tasks);
+    if (result?.error) {
+      return result;
+    } else {
+      setTasks(result.tasks);
+    }
+  };
+
+  const onEditTask = (currentName, newName) => {
+    const result = handleEditTask(currentName, newName, tasks);
+    if (result?.error) {
+      return result;
+    } else {
+      setTasks(result.tasks);
+    }
+  };
+
   const onToggleDone = (name) => setTasks(handleToggleDone(name, tasks));
   const setIsEditing = (name) => setTasks(handleSetIsEditing(name, tasks));
-  const onEditTask = (currentName, newName) =>
-    setTasks(handleEditTask(currentName, newName, tasks));
   const onDelete = (name) => setTasks(handleDelete(name, tasks));
   const onMoveUp = (name) => setTasks(handleMoveUp(name, tasks));
   const onMoveDown = (name) => setTasks(handleMoveDown(name, tasks));

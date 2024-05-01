@@ -108,3 +108,9 @@ body {
   background-color: #2196f3;
   color: white;
 }
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}

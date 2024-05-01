@@ -3,10 +3,14 @@ const findTaskByName = (name, tasks) =>
 
 export const handleAddTask = (name, tasks) => {
   if (findTaskByName(name, tasks)) {
-    alert(`Task with the name: "${name}" already exists`);
-    return tasks;
+    return { error: `Task with the name: "${name}" already exists` };
   }
-  return [...tasks, { name, isDone: false, isEditing: false, checked: false }];
+  return {
+    tasks: [
+      ...tasks,
+      { name, isDone: false, isEditing: false, checked: false },
+    ],
+  };
 };
 
 export const handleToggleDone = (name, tasks) =>
@@ -21,14 +25,15 @@ export const handleSetIsEditing = (name, tasks) =>
 
 export const handleEditTask = (currentName, newName, tasks) => {
   if (findTaskByName(newName, tasks)) {
-    alert(`Task with the name: "${newName}" already exists`);
-    return tasks;
+    return { error: `Task with the name: "${newName}" already exists` };
   }
-  return tasks.map((task) =>
-    task.name === currentName
-      ? { ...task, name: newName, isEditing: false }
-      : task
-  );
+  return {
+    tasks: tasks.map((task) =>
+      task.name === currentName
+        ? { ...task, name: newName, isEditing: false }
+        : task
+    ),
+  };
 };
 
 export const handleDelete = (name, tasks) =>
